@@ -8,6 +8,42 @@
 </head>
 <body>
     Hello
-    <script src="tm.js"></script>
+    <script>
+        console.log("Worked")
+        const options = {
+  enableHighAccuracy: true,
+  timeout: 3000,
+  maximumAge: 0,
+};
+
+function success(pos) {
+  const crd = pos.coords;
+
+  console.log("Your current position is:");
+  console.log(`Latitude : ${crd.latitude}`);
+  console.log(`Longitude: ${crd.longitude}`);
+  console.log(`More or less ${crd.accuracy} meters.`);
+}
+
+function error(error) {
+//   console.warn(`ERROR(${err.code}): ${err.message}`);
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      x.innerHTML = "User denied the request for Geolocation."
+      break;
+    case error.POSITION_UNAVAILABLE:
+      x.innerHTML = "Location information is unavailable."
+      break;
+    case error.TIMEOUT:
+      x.innerHTML = "The request to get user location timed out."
+      break;
+    case error.UNKNOWN_ERROR:
+      x.innerHTML = "An unknown error occurred."
+      break;
+  }
+}
+
+navigator.geolocation.getCurrentPosition(success, error, options);
+    </script>
 </body>
 </html>
